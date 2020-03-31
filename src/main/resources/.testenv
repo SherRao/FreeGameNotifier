@@ -1,0 +1,11 @@
+VERSION="0.2"
+TOKEN="TOKENHERE"
+OWNER="OWNER ID"
+
+CONSOLE_PREFIX='/'
+PREFIX='!'
+
+REDDIT_USER="username"
+REDDIT_PASS="password"
+REDDIT_SECRET="secret"
+REDDIT_ID="redditid"
