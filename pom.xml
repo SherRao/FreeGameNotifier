@@ -1,0 +1,72 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>tk.sherrao.fgn</groupId>
+	<artifactId>FreeGameNotifier</artifactId>
+	<version>0.2 ALPHA</version>
+
+	<dependencies>
+		<!-- Java Discord API -->
+		<dependency>
+			<groupId>net.dv8tion</groupId>
+			<artifactId>JDA</artifactId>
+			<version>4.1.1_125</version>
+		</dependency>
+
+		<!-- DotEnv Configuration API -->
+		<dependency>
+			<groupId>io.github.cdimascio</groupId>
+			<artifactId>java-dotenv</artifactId>
+			<version>5.1.4</version>
+		</dependency>
+
+		<!-- Java Reddit API Wrapper -->
+		<dependency>
+			<groupId>net.dean.jraw</groupId>
+			<artifactId>JRAW</artifactId>
+			<version>1.1.0</version>
+		</dependency>
+
+		<!-- JDA Bot Commons API -->
+		<dependency>
+			<groupId>me.duncte123</groupId>
+			<artifactId>botCommons</artifactId>
+			<version>1.0.83</version>
+			<type>pom</type>
+		</dependency>
+
+		<!-- JSON Configuration API -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20190722</version>
+		</dependency>
+
+		<!-- Valve Master Server Query Protocol API -->
+		<!-- 
+		<dependency>
+			<groupId>com.ibasco.agql</groupId>
+			<artifactId>agql-steam-master</artifactId>
+			<version>0.1.7</version>
+		</dependency>
+		-->
+
+		<!-- Valve Steam Web API -->
+		<dependency>
+			<groupId>com.ibasco.agql</groupId>
+			<artifactId>agql-steam-webapi</artifactId>
+			<version>0.1.7</version>
+		</dependency>
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>jcenter</id>
+			<name>jcenter-bintray</name>
+			<url>https://jcenter.bintray.com</url>
+
+		</repository>
+	</repositories>
+
+</project>

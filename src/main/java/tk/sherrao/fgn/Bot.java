@@ -1,61 +1,117 @@
 package tk.sherrao.fgn;
 
+import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import javax.security.auth.login.LoginException;
 
+import org.json.JSONException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.core.JsonParseException;
+
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.AnnotatedEventManager;
+import net.dv8tion.jda.api.hooks.SubscribeEvent;
+import tk.sherrao.fgn.config.Configuration;
+import tk.sherrao.fgn.config.ServerSettings;
 
 public class Bot extends AnnotatedEventManager {
 
+	private final Logger LOGGER = LoggerFactory.getLogger(Bot.class);
+	
 	private JDA jda;
+	private Configuration config;
 	private ScheduledExecutorService exec;
 	
 	private Console console;
 	private RedditListener reddit;
+	private Map<String, ServerSettings> serverSettings;
 	
 	private Bot() {
 		try {
-			jda = JDABuilder.createDefault( Configuration.get("TOKEN") )
+			config = new Configuration(this);
+			
+			jda = JDABuilder.createDefault( config.getProperty("TOKEN") )
 					.setStatus(OnlineStatus.DO_NOT_DISTURB)
 					.setEventManager(this)
 					.setActivity(Activity.watching("Free Games!"))
 					.build();
-			
 			jda.awaitReady();
-
+			jda.addEventListener(this);
+			
+			System.out.println("a");
+			
 			exec = Executors.newScheduledThreadPool(3);
 			reddit = new RedditListener(this);
-			
 			exec.scheduleWithFixedDelay(reddit, 2, 10, TimeUnit.SECONDS);
 			
 		} catch (LoginException e) {
-			System.err.println("Could not successfully login to the Discord servers!");
-			e.printStackTrace();
+			LOGGER.error("Could not successfully login to the Discord servers!", e);
 
 		} catch (InterruptedException e) {
-			System.err.println("Error while trying to await a connection to be established!");			
-			e.printStackTrace();
+			LOGGER.error("Error while trying to await a connection to be established!", e);			
 
-		}
+		} catch (JsonParseException e) {
+			LOGGER.error("Error while trying to parse JSON!", e);
+			
+		} catch (IOException e) {
+			LOGGER.error("Error while trying to write to the disk!", e);
+			
+		} 
 		
-		Runtime.getRuntime().addShutdownHook( new Thread(() -> { shutdown(); }) );
+		Runtime.getRuntime().addShutdownHook( new Thread(() -> { shutdown(); } ) );
+	}
+	
+	@SubscribeEvent
+	public void onGuildMessageReceivedEvent(GuildMessageReceivedEvent event) {
+		String message = event.getMessage().getContentRaw();
+		if( message.startsWith(config.getProperty("PREFIX")) ) {
+			String[] tokens = message.toLowerCase().split(" ");
+			tokens[0] = tokens[0].replace(config.getProperty("PREFIX"), "");
+			switch(tokens[0]) {
+				case "github":
+				case "git":
+					event.getChannel().sendMessage("https://github.com/sherrao").queue();
+					break;
+					
+			}
+			
+		} else 
+			return;
 		
 	}
 	
 	public void shutdown() {
-		jda.shutdownNow();
-		
+		try {
+			jda.shutdownNow();
+			config.shutdown();
+	
+		} catch (JSONException e) {
+			LOGGER.error("Error while parsing JSON data while shutting down!", e);
+
+		} catch(IOException e) {
+			LOGGER.error("Error while trying to I/O to/from the disk while shutting down!", e);
+			
+		}
 	}
+	
 	
 	public JDA jda() {
 		return jda;
+		
+	}
+	
+	public Configuration getConfig() {
+		return config;
 		
 	}
 	

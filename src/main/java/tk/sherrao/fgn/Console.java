@@ -4,18 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import net.dv8tion.jda.api.JDA;
-
-public class Console implements Runnable {
-
-	private final Bot bot;
+public class Console extends BotComponent implements Runnable {
 	
 	private Scanner scanner;
 	private Map<String, Runnable> commands;
 	private boolean running;
 	
 	public Console(Bot bot) {
-		this.bot = bot;
+		super(bot);
 		
 		this.scanner = new Scanner(System.in);
 		this.commands = new HashMap<>();
@@ -24,7 +20,9 @@ public class Console implements Runnable {
 	}
 
 	public void addCommands() {
-		commands.put("quit", () -> {bot.shutdown();});
+		commands.put("quit", () -> {
+			
+		} );
 		
 	}
 	
