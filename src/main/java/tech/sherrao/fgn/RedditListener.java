@@ -1,4 +1,4 @@
-package tk.sherrao.fgn;
+package tech.sherrao.fgn;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;

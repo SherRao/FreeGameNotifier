@@ -1,4 +1,4 @@
-package tk.sherrao.fgn.config;
+package tech.sherrao.fgn.config;
 
 public class ServerSettings {
 

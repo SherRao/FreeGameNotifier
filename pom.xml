@@ -44,20 +44,25 @@
 		</dependency>
 
 		<!-- Valve Master Server Query Protocol API -->
-		<!-- 
 		<dependency>
+			<groupId>com.lukaspradel</groupId>
+			<artifactId>steam-web-api</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<!-- Valve Steam Web Master API -->
+<!-- 		<dependency>
 			<groupId>com.ibasco.agql</groupId>
 			<artifactId>agql-steam-master</artifactId>
 			<version>0.1.7</version>
-		</dependency>
-		-->
+		</dependency>-->
 
 		<!-- Valve Steam Web API -->
-		<dependency>
+<!-- 	<dependency>
 			<groupId>com.ibasco.agql</groupId>
 			<artifactId>agql-steam-webapi</artifactId>
 			<version>0.1.7</version>
-		</dependency>
+		</dependency>-->
 	</dependencies>
 
 	<repositories>

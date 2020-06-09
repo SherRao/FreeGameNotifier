@@ -1,4 +1,4 @@
-package tk.sherrao.fgn;
+package tech.sherrao.fgn;
 
 import java.util.HashMap;
 import java.util.Map;

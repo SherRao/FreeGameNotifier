@@ -1,11 +1,11 @@
-package tk.sherrao.fgn;
+package tech.sherrao.fgn;
 
 import javax.annotation.Nonnull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import tk.sherrao.fgn.config.Configuration;
+import tech.sherrao.fgn.config.Configuration;
 
 public abstract class BotComponent {
 

@@ -1,10 +1,9 @@
-package tk.sherrao.fgn;
+package tech.sherrao.fgn;
 
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import javax.security.auth.login.LoginException;
 
@@ -13,7 +12,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonParseException;
-
+import com.lukaspradel.steamapi.data.json.appnews.GetNewsForApp;
+import com.lukaspradel.steamapi.webapi.client.SteamWebApiClient.SteamWebApiClientBuilder;
+import com.lukaspradel.steamapi.webapi.request.GetNewsForAppRequest;
+import com.lukaspradel.steamapi.webapi.request.builders.SteamWebApiRequestFactory;
+import com.lukaspradel.steamapi.webapi.client.SteamWebApiClient;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -21,8 +24,8 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.AnnotatedEventManager;
 import net.dv8tion.jda.api.hooks.SubscribeEvent;
-import tk.sherrao.fgn.config.Configuration;
-import tk.sherrao.fgn.config.ServerSettings;
+import tech.sherrao.fgn.config.Configuration;
+import tech.sherrao.fgn.config.ServerSettings;
 
 public class Bot extends AnnotatedEventManager {
 
@@ -48,11 +51,10 @@ public class Bot extends AnnotatedEventManager {
 			jda.awaitReady();
 			jda.addEventListener(this);
 			
-			System.out.println("a");
-			
 			exec = Executors.newScheduledThreadPool(3);
-			reddit = new RedditListener(this);
-			exec.scheduleWithFixedDelay(reddit, 2, 10, TimeUnit.SECONDS);
+			//reddit = new RedditListener(this);
+			//exec.scheduleWithFixedDelay(reddit, 2, 10, TimeUnit.SECONDS);
+			
 			
 		} catch (LoginException e) {
 			LOGGER.error("Could not successfully login to the Discord servers!", e);
@@ -104,7 +106,6 @@ public class Bot extends AnnotatedEventManager {
 		}
 	}
 	
-	
 	public JDA jda() {
 		return jda;
 		
@@ -122,6 +123,12 @@ public class Bot extends AnnotatedEventManager {
 	
 	public static void main(String... vargs) {
 		new Bot();
+		
+	}
+	
+	public void steam() {
+		SteamWebApiClient api = new SteamWebApiClientBuilder("").build();
+		
 		
 	}
 	

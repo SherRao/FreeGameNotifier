@@ -1,4 +1,4 @@
-package tk.sherrao.fgn.config;
+package tech.sherrao.fgn.config;
 
 import java.io.File;
 import java.io.FileReader;
@@ -16,8 +16,8 @@ import org.json.JSONWriter;
 import com.fasterxml.jackson.core.JsonParseException;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import tk.sherrao.fgn.Bot;
-import tk.sherrao.fgn.BotComponent;
+import tech.sherrao.fgn.Bot;
+import tech.sherrao.fgn.BotComponent;
 
 public class Configuration extends BotComponent {
 	
